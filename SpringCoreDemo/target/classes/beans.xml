@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Address Bean -->
+    <bean id="addressBean"
+          class="com.demo.Address"
+          scope="singleton">
+
+        <property name="city" value="Pune"/>
+        <property name="state" value="Maharashtra"/>
+
+    </bean>
+
+    <!-- College Bean -->
+    <bean id="collegeBean"
+          class="com.demo.College">
+
+        <property name="collegeName"
+                  value="ABC Engineering College"/>
+
+    </bean>
+
+    <!-- Student Bean -->
+    <bean id="studentBean"
+          class="com.demo.Student"
+          scope="prototype">
+
+        <!-- Constructor Injection -->
+        <constructor-arg value="101"/>
+        <constructor-arg value="Rahul"/>
+        <constructor-arg ref="addressBean"/>
+
+        <!-- Setter Injection -->
+        <property name="college"
+                  ref="collegeBean"/>
+
+    </bean>
+
+</beans>

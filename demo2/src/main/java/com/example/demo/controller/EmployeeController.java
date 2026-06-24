@@ -1,0 +1,45 @@
+package com.example.demo.controller;
+
+//package com.example.springboot.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.springboot.entity.*;
+import com.example.springboot.service.*;
+
+@RestController
+@RequestMapping("/api/employees")
+public class EmployeeController {
+	@Autowired
+	private EmployeeService service;
+	@PostMapping
+	public Employee createEmployee(@RequestBody Employee employee) {
+		return service.save(employee);
+	}
+	@GetMapping
+	public List<Employee>getEmployee(){
+		return service.getAllEmployees();
+	}
+	@GetMapping("/{id}")
+	public Employee getEmployee(@PathVariable Long id) {
+		return service.getEmployee(id);
+	}
+	@PutMapping("/{id}")
+	public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
+		return service.updateEmployee(id, employee);
+	}
+	@PatchMapping("/{id}/salary")
+	public Employee updateSalary(@PathVariable Long id, @RequestBody Map<String, Double>request) {
+		return service.updateSalary(id, request.get("salary"));
+	}
+	@DeleteMapping("/{id}")
+	public String deleteEmployee(@PathVariable Long id) {
+		service.deleteEmployee(id);
+		return "Employee Deleted Successfully";
+	}
+	
+}

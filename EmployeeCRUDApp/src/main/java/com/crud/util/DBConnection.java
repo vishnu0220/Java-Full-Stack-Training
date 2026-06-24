@@ -1,0 +1,26 @@
+package com.crud.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DBConnection {
+
+    private static final String URL =
+            "jdbc:mysql://localhost:3306/employee_db?useSSL=false&serverTimezone=UTC";
+
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "rps@123";
+
+    
+    public static Connection getConnection() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+        } catch (Exception e) {
+            throw new RuntimeException("DB Connection Failed", e);
+        }
+    }
+    
+}
